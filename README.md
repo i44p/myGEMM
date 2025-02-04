@@ -1,3 +1,8 @@
+clGEMM
+=============
+
+This repo contains some files for YADRO 2025 Winter School.
+
 
 Exploring the performance of SGEMM in OpenCL on NVIDIA GPUs
 =============
