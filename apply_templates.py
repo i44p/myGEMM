@@ -18,11 +18,11 @@ class FileTemplate:
 
 defaults = [
     FileTemplate("templates/settings.h", "src/settings.h", {
-        "SELECTED_KERNEL": "6",
+        "SELECTED_KERNEL": "8",
         "WORK_GROUP_SIZE": "32"
     }),
     FileTemplate("templates/clGEMM.cpp", "src/clGEMM.cpp", {
-        "CL_COMPILER_OPTIONS": '"-cl-std=CL2.0"',
+        "CL_COMPILER_OPTIONS": '-cl-std=CL2.0',
     })
 ]
 

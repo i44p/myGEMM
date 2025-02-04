@@ -35,7 +35,7 @@ void checkError(cl_int error, int line);
 #define CL_PTX_FILE "bin/myGEMM.cl.ptx"
 
 // Define OpenCL compiler options, such as "-cl-nv-maxrregcount=127"
-#define COMPILER_OPTIONS ${CL_COMPILER_OPTIONS}
+#define COMPILER_OPTIONS "${CL_COMPILER_OPTIONS}"
 
 // =================================================================================================
 
