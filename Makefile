@@ -69,7 +69,7 @@ BIN = $(BINDIR)/myGEMM
 # ==================================================================================================
 
 # All (default target)
-all: build run
+all: preprocess build run
 
 # Build the binary from the objects
 build: $(OBJS)
@@ -85,6 +85,9 @@ $(OBJDIR)/%.cpp.o: $(SRCDIR)/%.cpp $(SRCDIR)/*.h
 $(OBJDIR)/%.cu.o: $(SRCDIR)/%.cu $(SRCDIR)/*.h $(SRCDIR)/*.cl
 	@mkdir -p $(OBJDIR)
 	$(NVCC) -c $(NVFLAGS) $(DEFINES) $(INCLUDES) $< -o $@
+
+preprocess:
+	python apply_templates.py
 
 # Generate assembly code from the kernels and print some statistics
 inspect:
