@@ -34,6 +34,9 @@ int main(int argc, char* argv[]) {
 
     // Start of the function
     printf("\n##\n");
+#ifdef USE_CSV_OUT_FORMAT
+    printf("backend,selected_kernel,work_group_size,cl_compiler_options,matrix_dimensions,elapsed_s\n");
+#endif
     srand(time(NULL));
 
     // Compute the peak performance of the GPU
@@ -139,7 +142,7 @@ int main(int argc, char* argv[]) {
             double performance = gflops(timers[c]);
             double fraction = 100.0 * performance / peak;
 #ifdef USE_CSV_OUT_FORMAT
-            printf("%9s,%2d,%2d,%s,%d,%6.3f\n", name, KERNEL, TS, "dummy parameters", k, seconds);
+            printf("%9s,%2d,%2d,%s,%d,%8.5f\n", name, KERNEL, TS, "dummy parameters", k, seconds);
 #else
             printf("## [%9s] %6.3lf s --> %6.1lf GFLOPS (%2.0lf%%), L2 norm: %.2e\n",
                    name, seconds, performance, fraction, L2norm);
