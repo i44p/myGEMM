@@ -34,9 +34,6 @@ void checkError(cl_int error, int line);
 // Determine the location where to output the PTX code
 #define CL_PTX_FILE "bin/myGEMM.cl.ptx"
 
-// Define OpenCL compiler options, such as "-cl-nv-maxrregcount=127"
-#define COMPILER_OPTIONS ""
-
 // =================================================================================================
 
 // Matrix-multiplication using a custom OpenCL SGEMM kernel. This function also copies the input

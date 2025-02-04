@@ -13,6 +13,9 @@
 //
 // =================================================================================================
 
+// Define OpenCL compiler options, such as "-cl-nv-maxrregcount=127"
+#define COMPILER_OPTIONS "-cl-std=CL2.0"
+
 // Select a kernel
 #define KERNEL 8
 
