@@ -72,7 +72,7 @@ BIN = $(BINDIR)/myGEMM
 all: preprocess build run
 
 # Build the binary from the objects
-build: preprocess $(OBJS)
+build: $(OBJS)
 	@mkdir -p $(BINDIR)
 	$(CXX) $(CXXFLAGS) $(DEFINES) $(INCLUDES) $(OBJS) $(LDFLAGS) -o $(BIN)
 
