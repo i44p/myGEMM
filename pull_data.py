@@ -2,7 +2,7 @@ import itertools
 import subprocess
 import sys
 
-import matplotlib
+#import matplotlib
 
 import apply_templates
 
@@ -61,13 +61,18 @@ if __name__ == '__main__':
     ]
 
     SELECTED_KERNELS = [
-        #1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-        9,
+        #3, 4, 5, 6, 7, 8, 9, 10
+        # 1,
+        # 2,
+        # 3,
+        4,
+        # 5,
+        # 6
     ]
 
     ALL_CL_COMPILER_OPTIONS = [
-        "-cl-std=CL2.0",
-        #"-cl-std=CL1.2"
+        #"-cl-std=CL2.0",
+        "-cl-std=CL1.2"
     ]
 
     variables = [ALL_CL_COMPILER_OPTIONS, SELECTED_KERNELS, WORK_GROUP_SIZES]
