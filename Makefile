@@ -26,10 +26,11 @@ ENABLE_CUDA = 1
 # Compilers
 CXX = g++
 NVCC = nvcc
+NV_ARCH = sm_61
 
 # Compiler flags
 CXXFLAGS += -O3 -Wall
-NVFLAGS += -O3 -arch=sm_35 -Xcompiler -Wall
+NVFLAGS += -O3 -arch=$(NV_ARCH) -Xcompiler -Wall
 #NVFLAGS += -maxrregcount 127
 
 # Folders
@@ -94,7 +95,7 @@ inspect:
 	$(NVCC) -cubin $(NVFLAGS) -Xptxas -v $(INCLUDES) $(SRCDIR)/cuGEMM.cu -o $(BIN).cu.cubin
 	nvdisasm -lrm narrow $(BIN).cu.cubin > $(BIN).cu.asm
 	cuobjdump $(BIN) -xptx cuGEMM
-	mv cuGEMM.sm_35.ptx $(BIN).cu.ptx
+	mv cuGEMM.$(NV_ARCH).ptx $(BIN).cu.ptx
 	cuobjdump $(BIN) -sass > $(BIN).cu.sass
 	sh $(SCRDIR)/stats.sh $(BIN).cu.sass
 
