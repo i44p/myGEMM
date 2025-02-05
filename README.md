@@ -3,6 +3,27 @@ clGEMM
 
 This repo contains some files for YADRO 2025 Winter School.
 
+Для сбора данных можно использовать pull_data.py. Она перенаправляет все аргументы для сборки в make.
+
+	python3 pull_data.py <параметры>
+
+Например,
+
+	python3 pull_data.py ENABLE_CUDA=0
+
+
+ENABLE_CUDA=0 нужно если собираем без CUDA, по умолчанию ENABLE_CUDA=1.
+
+Скрипт будет последовательно выводить результаты экспериментов в формате CSV, но без заголовка. Сам же заголовок такой:
+
+	backend,selected_kernel,work_group_size,cl_compiler_options,matrix_dimensions,elapsed_s
+
+
+Для выбора ядер и work group size нужно изменить соответствующие переменные в pull_data.py (~70 строчка).
+
+Небольшие заметка по поводу выбора параметров: похоже, что на большинстве устройств ядра 1-2 не работают с wgs 32, только с 16. Так же ядра > 3 могут не работать с маленьким wgs < 8.
+
+
 
 Exploring the performance of SGEMM in OpenCL on NVIDIA GPUs
 =============
