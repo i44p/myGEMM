@@ -72,7 +72,7 @@ def grouped_bar_kernels(frame, backend='myGEMM.cl', WGS = 16, opts='-cl-std=CL1.
         kernel_times[kernel] = times
 
     x = np.arange(len(groups))  # the label locations
-    width = 0.14  # the width of the bars
+    width = 0.13  # the width of the bars
     multiplier = 0
 
     for kernel, measurement in kernel_times.items():

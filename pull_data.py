@@ -47,7 +47,7 @@ def collect_data_for_config(config):
     output = subprocess.run(['./bin/myGEMM'], capture_output=True)
     data = output.stdout.decode().split('##')[1].strip().split('\n')
     header = data[1]
-    bench_data = data[2:]
+    bench_data = data[1:]
     if output.returncode != 0:
         print(f"FAILED TO RUN WITH CONFIG {config} {bench_data[0]}")
         return
