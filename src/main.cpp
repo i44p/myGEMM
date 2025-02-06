@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
 #endif
 
     // Loop over the different input/output matrix sizes
-    for (int size=MINSIZE; size<=MAXSIZE; size=size + STEP) {
+    for (int size=MINSIZE; size<=MAXSIZE; size=STEP) {
 
         // Set the performance counters to zero
         for (int t=0; t<NUM_TIMERS; t++) {
