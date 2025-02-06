@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-data = pd.read_csv("data.csv")
+data = pd.read_csv("pwr_data.csv")
 data.columns = "backend,selected_kernel,work_group_size,cl_compiler_options,matrix_dimensions,elapsed_s".split(',')
 
 for col in data.columns:
@@ -57,6 +57,7 @@ def grouped_bar_kernels(frame, backend='myGEMM.cl', WGS = 16, opts='-cl-std=CL1.
     ax.set_ylabel("Time spent (s), median")
     ax.set_title(f"{backend}, WGS={WGS}, {opts}")
     ax.set_yscale('log')
+    ax.set_ylim(bottom=10e-3, top=10e+2)
 
     unique_kernels = frame['selected_kernel'].unique().tolist()
     unique_sizes = frame['matrix_dimensions'].unique().tolist()
@@ -78,7 +79,7 @@ def grouped_bar_kernels(frame, backend='myGEMM.cl', WGS = 16, opts='-cl-std=CL1.
     for kernel, measurement in kernel_times.items():
         offset = width * multiplier
         rects = ax.bar(x + offset, measurement, width, label=f"kernel={kernel}")
-        ax.bar_label(rects, padding=3)
+        ax.bar_label(rects, padding=3, rotation=90)
         multiplier += 1
 
     ax.set_xticks(x + width, groups)
