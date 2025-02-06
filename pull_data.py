@@ -34,40 +34,47 @@ class BuildConfig:
 
         for t in templates:
             t.replace()
+    
+    def __repr__(self):
+        return f"<kernel:{self.selected_kernel} wgs:{self.work_group_size} {self.cl_compiler_options}>"
 
 
 def run_make():
     subprocess.run(['make', 'build', *sys.argv[1:]], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
 
 
-def collect_data_for_config():
-    output = subprocess.run(['./bin/myGEMM'], check=True, capture_output=True)
+def collect_data_for_config(config):
+    output = subprocess.run(['./bin/myGEMM'], capture_output=True)
     data = output.stdout.decode().split('##')[1].strip().split('\n')
     header = data[1]
     bench_data = data[2:]
+    if output.returncode != 0:
+        print(f"FAILED TO RUN WITH CONFIG {config} {bench_data[0]}")
+        return
     print('\n'.join(bench_data))
 
 
 def benchmark_with(config: BuildConfig):
     config.apply_template()
     run_make()
-    return collect_data_for_config()
+    return collect_data_for_config(config)
 
 
 if __name__ == '__main__':
     WORK_GROUP_SIZES = [
-        #1, 4, 16, 32
-        32, 16
+        #8, 16, 32,
+        16
     ]
 
     SELECTED_KERNELS = [
-        #3, 4, 5, 6, 7, 8, 9, 10
-        # 1,
-        # 2,
-        # 3,
+        # 3, 4, 5, 6, 7, 8, 9, 10
+        1,
+        2,
+        3,
         4,
-        # 5,
-        # 6
+        5,
+        6,
+        7
     ]
 
     ALL_CL_COMPILER_OPTIONS = [

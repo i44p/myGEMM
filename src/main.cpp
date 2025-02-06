@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
 #endif
 
     // Loop over the different input/output matrix sizes
-    for (int size=MINSIZE; size<=MAXSIZE; size=size*2) {
+    for (int size=MINSIZE; size<=MAXSIZE; size=STEP) {
 
         // Set the performance counters to zero
         for (int t=0; t<NUM_TIMERS; t++) {
@@ -142,7 +142,7 @@ int main(int argc, char* argv[]) {
             double performance = gflops(timers[c]);
             double fraction = 100.0 * performance / peak;
 #ifdef USE_CSV_OUT_FORMAT
-            printf("%9s,%2d,%2d,%s,%d,%8.5f\n", name, KERNEL, TS, COMPILER_OPTIONS, k, seconds);
+            printf("%9s,%2d,%2d,%s,%d,%.5f\n", name, KERNEL, TS, COMPILER_OPTIONS, k, seconds);
 #else
             printf("## [%9s] %6.3lf s --> %6.1lf GFLOPS (%2.0lf%%), L2 norm: %.2e\n",
                    name, seconds, performance, fraction, L2norm);
