@@ -62,19 +62,26 @@ def benchmark_with(config: BuildConfig):
 
 if __name__ == '__main__':
     WORK_GROUP_SIZES = [
-        #8, 16, 32,
-        16
+        4, 
+        8, 
+        16, 
+        32,
+        # 16
     ]
 
     SELECTED_KERNELS = [
-        # 3, 4, 5, 6, 7, 8, 9, 10
+        # 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
         1,
         2,
-        3,
-        4,
-        5,
-        6,
-        7
+        # 3,
+        # 4,
+        # 5,
+        # 6,
+        # 7, 
+        # 8,
+        # 9,
+        # 10,
+        # 11
     ]
 
     ALL_CL_COMPILER_OPTIONS = [
@@ -87,10 +94,19 @@ if __name__ == '__main__':
     for combination in itertools.product(*variables):
         compiler_options, kernel, wgs = combination
 
-        config = BuildConfig(
-            work_group_size=wgs,
-            selected_kernel=kernel,
-            cl_compiler_options=compiler_options
-        )
+        # config = BuildConfig(
+        #     work_group_size=wgs,
+        #     selected_kernel=kernel,
+        #     cl_compiler_options=compiler_options
+        # )
 
-        benchmark_with(config)
+        # benchmark_with(config)
+
+        for i in range(100):
+            config = BuildConfig(
+                work_group_size=wgs,
+                selected_kernel=kernel,
+                cl_compiler_options=compiler_options
+            )
+
+            benchmark_with(config)
