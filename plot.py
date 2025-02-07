@@ -11,6 +11,8 @@ for col in data.columns:
     if pd.api.types.is_string_dtype(data[col]):
         data[col] = data[col].str.strip()
 
+markers = ['o', 'v', '^', '8', 's', 'P', '*', 'D']
+
 
 def plot_matrices(frame, backend='myGEMM.cl', WGS = 16, opts='-cl-std=CL1.2', log=True):
     fig, ax = plt.subplots(layout='constrained', figsize=(9,5))
@@ -27,7 +29,7 @@ def plot_matrices(frame, backend='myGEMM.cl', WGS = 16, opts='-cl-std=CL1.2', lo
     unique_kernels = frame['selected_kernel'].unique().tolist()
     unique_sizes = frame['matrix_dimensions'].unique().tolist()
 
-    fmt = [f'{marker}--' for marker in ['o', 'v', '^', '8', 's', 'P', '*', 'D']]
+    fmt = [f'{marker}--' for marker in markers]
 
     x = sorted(unique_sizes)
     y = {}
@@ -57,7 +59,10 @@ def grouped_bar_kernels(frame, backend='myGEMM.cl', WGS = 16, opts='-cl-std=CL1.
     ax.set_ylabel("Time spent (s), median")
     ax.set_title(f"{backend}, WGS={WGS}, {opts}")
     ax.set_yscale('log')
-    ax.set_ylim(bottom=10e-3, top=10e+2)
+    ax.set_ylim(
+        bottom=2 * 10e-3,#5,#3, 
+        top=10e+2#-2#+2
+        )
 
     unique_kernels = frame['selected_kernel'].unique().tolist()
     unique_sizes = frame['matrix_dimensions'].unique().tolist()
@@ -68,9 +73,12 @@ def grouped_bar_kernels(frame, backend='myGEMM.cl', WGS = 16, opts='-cl-std=CL1.
     for kernel in unique_kernels:
         kernel_frame = frame[frame['selected_kernel'] == kernel]
         times = []
+        stdevs = []
         for size in groups:
-            times.append(kernel_frame[kernel_frame['matrix_dimensions'] == size]['elapsed_s'].median())
-        kernel_times[kernel] = times
+            d = kernel_frame[kernel_frame['matrix_dimensions'] == size]['elapsed_s']
+            times.append(d.median())
+            stdevs.append(d.std())
+        kernel_times[kernel] = [times, stdevs]
 
     x = np.arange(len(groups))  # the label locations
     width = 0.13  # the width of the bars
@@ -78,8 +86,9 @@ def grouped_bar_kernels(frame, backend='myGEMM.cl', WGS = 16, opts='-cl-std=CL1.
 
     for kernel, measurement in kernel_times.items():
         offset = width * multiplier
-        rects = ax.bar(x + offset, measurement, width, label=f"kernel={kernel}")
-        ax.bar_label(rects, padding=3, rotation=90)
+        times, stdevs = measurement
+        rects = ax.bar(x + offset, times, width, label=f"kernel={kernel}", yerr=stdevs)
+        ax.bar_label(rects, padding=6, rotation=90)
         multiplier += 1
 
     ax.set_xticks(x + width, groups)
@@ -93,6 +102,8 @@ def boxplot_kernels(frame, backend='myGEMM.cl', WGS = 16, SIZE=2048):
     ax.set_xlabel("kernel")
     ax.set_ylabel("Time spent (s)")
     ax.set_title(f"{backend}, WGS={WGS}, SIZE={SIZE}")
+    ax.set_yscale('log')
+    #ax.set_ylim((2.5,35))
 
     frame = frame[frame['backend'] == backend]
     frame = frame[frame['matrix_dimensions'] == SIZE]
@@ -106,7 +117,8 @@ def boxplot_kernels(frame, backend='myGEMM.cl', WGS = 16, SIZE=2048):
         kernels.append(kernel)
         times.append(frame[frame['selected_kernel'] == kernel]['elapsed_s'])
 
-    bplot = ax.boxplot(times, tick_labels=kernels, showfliers=False)
+    #bplot = ax.boxplot(times, tick_labels=kernels, showfliers=False)
+    ax.violinplot(times, showmedians=True)
 
     # ax.legend()
 
