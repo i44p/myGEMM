@@ -17,10 +17,10 @@
 #define COMPILER_OPTIONS "-cl-std=CL1.2"
 
 // Select a kernel
-#define KERNEL 1
+#define KERNEL 6
 
 // Constants for kernels 1 -- 5
-#define TS 4         // The square-root of the 2D tile-size (== work-group dims)
+#define TS 128         // The square-root of the 2D tile-size (== work-group dims)
 
 // Constants for kernels 3, 5
 #define WPT 8                        // The amount of work-per-thread, i.e. the thread-coarsening factor

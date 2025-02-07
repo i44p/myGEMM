@@ -62,22 +62,26 @@ def benchmark_with(config: BuildConfig):
 
 if __name__ == '__main__':
     WORK_GROUP_SIZES = [
-        4, 
+        # 4, 
         8, 
         16, 
         32,
-        # 16
+        64,
+        128,
+        256,
+        512,
+        1024
     ]
 
     SELECTED_KERNELS = [
         # 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-        1,
-        2,
+        # 1,
+        # 2,
         # 3,
         # 4,
         # 5,
-        # 6,
-        # 7, 
+        6,
+        7, 
         # 8,
         # 9,
         # 10,

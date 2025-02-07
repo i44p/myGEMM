@@ -96,7 +96,7 @@ int main(int argc, char* argv[]) {
         #endif
 
         // Loop over the configurations
-        for (int c=2; c<=3; c++) {
+        for (int c=3; c<=3; c++) {
 
             // Skip configurations if CUDA is disabled
             #ifndef ENABLE_CUDA
@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
             switch(c) {
                 // case 0: sprintf(name, "cuBLAS"); break;
                 // case 1: sprintf(name, "clBlas"); break;
-                case 2: sprintf(name, "myGEMM.cu"); break;
+                // case 2: sprintf(name, "myGEMM.cu"); break;
                 case 3: sprintf(name, "myGEMM.cl"); break;
             }
 
