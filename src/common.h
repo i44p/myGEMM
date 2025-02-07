@@ -27,8 +27,8 @@
 #define NUM_RUNS 1
 
 // Squared matrices are tested within a certain range (e.g. 1024x1024, 2048x2048, 4096x4096)
-#define MINSIZE (1 * 128)
-#define MAXSIZE (4 * 1024)
+#define MINSIZE (1 * 256)
+#define MAXSIZE (1 * 1024)
 #define STEP    size + size //(1*1024)
 
 // Set the alpha and beta values for the cuBLAS and clBlas libraries. Note that the myGEMM kernels
