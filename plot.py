@@ -232,14 +232,14 @@ def read_file(fn):
             data[col] = data[col].str.strip()
     return data
 
-data1 = read_file("pwr_data_all.csv")
+data1 = read_file("data/img_data.csv")
 data1 = data1[data1['backend'] != 'clBlas']
 
 grouped_bar_kernels(data1)
 # boxplot_kernels(data1)
 # plot_matrices(data1, log=False)
 
-data2 = read_file("cuda_data.csv")
+data2 = read_file("data/cuda_data.csv")
 data2 = data2[data2['backend'] != 'clBlas']
 
 grouped_bar_kernels(data2, name="grouped_bar_kernels_3090")
